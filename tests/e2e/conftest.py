@@ -18,7 +18,7 @@ def base_url():
     container = (
         DockerContainer(IMAGE_TAG)
         .with_exposed_ports(8000)
-        .waiting_for(LogMessageWaitStrategy("Listening at").with_startup_timeout(30))
+        .waiting_for(LogMessageWaitStrategy("Application startup complete").with_startup_timeout(30))
     )
     with container:
         host = container.get_container_host_ip()

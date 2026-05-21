@@ -1,12 +1,12 @@
 # Restaurant open-hours API
 
-Take-home implementation of [this prompt](https://gist.github.com/sharpmoose/d25487b913a08f6a6e6059c07035a041#file-restaurants-csv).
+Take-home implementation of [this prompt](https://gist.github.com/sharpmoose/d25487b913a08f6a6e6059c07035a041).
 
-Single-endpoint Flask service that returns the list of restaurants open at a given timestamp. Hours are parsed from `data/restaurants.csv` at startup into a precomputed minute-of-week lookup table, so queries are O(1).
+Single-endpoint FastAPI service that returns the list of restaurants open at a given timestamp. Hours are parsed from `data/restaurants.csv` at startup into a precomputed minute-of-week lookup table, so queries are O(1).
 
 ## Setup
 
-Requires [uv](https://docs.astral.sh/uv/). Then:
+Requires [uv](https://docs.astral.sh/uv/) for local dev and [Docker](https://docs.docker.com/get-docker/) for the containerized run and E2E tests. Then:
 
 ```sh
 make install-dev   # or: uv sync --group dev
@@ -14,10 +14,10 @@ make install-dev   # or: uv sync --group dev
 
 ## Run
 
-Dev server (port 5000):
+Dev server (port 8000):
 
 ```sh
-make run           # or: uv run flask --app app run
+make run           # or: uv run uvicorn app.main:app --reload
 ```
 
 Or via Docker (port 8000):
@@ -38,7 +38,7 @@ make test-e2e      # builds the image, runs container tests
 `GET /restaurants?at=<iso8601>` — returns restaurants open at that local time.
 
 ```sh
-curl "http://localhost:5000/restaurants?at=2026-05-18T23:00:00"
+curl "http://localhost:8000/restaurants?at=2026-05-18T23:00:00"
 ```
 
 ```json
@@ -52,6 +52,8 @@ curl "http://localhost:5000/restaurants?at=2026-05-18T23:00:00"
 ```
 
 Returns `400` if `at` is missing or not a parseable ISO 8601 timestamp.
+
+Interactive Swagger UI is auto-generated at [http://localhost:8000/docs](http://localhost:8000/docs).
 
 ## Configuration
 

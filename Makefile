@@ -13,7 +13,7 @@ test-e2e:
 	uv run pytest tests/e2e -m e2e
 
 run:
-	uv run flask --app app run
+	uv run uvicorn app.main:app --reload
 
 docker-build:
 	docker build -t liine-take-home .
