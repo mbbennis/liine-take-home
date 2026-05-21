@@ -27,7 +27,15 @@ class RestaurantName(BaseModel):
     name: str
 
 
-@app.get("/restaurants", response_model=list[RestaurantName])
+class ErrorResponse(BaseModel):
+    detail: str
+
+
+@app.get(
+    "/restaurants",
+    response_model=list[RestaurantName],
+    responses={400: {"model": ErrorResponse}},
+)
 def get_open_restaurants(request: Request, at: str | None = None):
     if not at:
         raise HTTPException(status_code=400, detail="missing 'at' query parameter")
