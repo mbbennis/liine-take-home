@@ -20,7 +20,12 @@ def test_parse_day_group_range():
 def test_parse_day_group_mixed():
     # 'Mon, Wed-Sun' means Tuesday is closed
     assert _parse_day_group("Mon, Wed-Sun") == [
-        Day.Mon, Day.Wed, Day.Thu, Day.Fri, Day.Sat, Day.Sun,
+        Day.Mon,
+        Day.Wed,
+        Day.Thu,
+        Day.Fri,
+        Day.Sat,
+        Day.Sun,
     ]
 
 

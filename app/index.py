@@ -23,7 +23,11 @@ def build_index(restaurants: list[Restaurant]) -> list[list[str]]:
             if interval.close_minute > interval.open_minute:
                 end = interval.day.value * MINUTES_PER_DAY + interval.close_minute
             else:
-                end = interval.day.value * MINUTES_PER_DAY + MINUTES_PER_DAY + interval.close_minute
+                end = (
+                    interval.day.value * MINUTES_PER_DAY
+                    + MINUTES_PER_DAY
+                    + interval.close_minute
+                )
             for slot in range(start, end):
                 table[slot % MINUTES_PER_WEEK].append(restaurant.name)
     return table

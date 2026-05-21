@@ -9,7 +9,7 @@ def test_happy_path_returns_open_restaurants(base_url):
     r = httpx.get(f"{base_url}/restaurants", params={"at": "2026-05-19T19:00:00"})
     assert r.status_code == 200
     names = {item["name"] for item in r.json()}
-    assert "Death and Taxes" in names           # Mon-Sun 5pm-10pm
+    assert "Death and Taxes" in names  # Mon-Sun 5pm-10pm
     assert "The Cowfish Sushi Burger Bar" in names  # Mon-Sun 11am-10pm
 
 

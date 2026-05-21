@@ -16,7 +16,7 @@ def test_returns_open_restaurants(client):
     assert resp.status_code == 200
     names = {item["name"] for item in resp.get_json()}
     assert "The Cowfish Sushi Burger Bar" in names  # Mon-Sun 11am-10pm
-    assert "Death and Taxes" in names               # Mon-Sun 5pm-10pm
+    assert "Death and Taxes" in names  # Mon-Sun 5pm-10pm
 
 
 def test_excludes_closed_restaurants(client):

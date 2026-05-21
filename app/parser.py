@@ -50,12 +50,16 @@ def _parse_hours(s: str) -> list[Interval]:
         tokens = chunk.split()
         if len(tokens) < 6 or tokens[-3] != "-":
             raise ValueError(f"unparseable hours chunk: {chunk!r}")
-        *day_tokens, open_digits, open_period, _dash, close_digits, close_period = tokens
+        *day_tokens, open_digits, open_period, _dash, close_digits, close_period = (
+            tokens
+        )
         days = _parse_day_group(" ".join(day_tokens))
         open_minute = _parse_time(f"{open_digits} {open_period}")
         close_minute = _parse_time(f"{close_digits} {close_period}")
         for day in days:
-            intervals.append(Interval(day=day, open_minute=open_minute, close_minute=close_minute))
+            intervals.append(
+                Interval(day=day, open_minute=open_minute, close_minute=close_minute)
+            )
     return intervals
 
 
